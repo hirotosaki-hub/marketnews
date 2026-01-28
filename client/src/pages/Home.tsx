@@ -1,25 +1,199 @@
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
+import { useState } from "react";
+import { newsData } from "@/lib/news-data";
+import NewsCard from "@/components/NewsCard";
+import { Search, Menu, TrendingUp, DollarSign, Activity } from "lucide-react";
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Best Practices, Design Guide and Common Pitfalls
- */
 export default function Home() {
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+  const [filter, setFilter] = useState("All");
+  const categories = ["All", "Monetary Policy", "Market Trends", "Corporate Earnings"];
+
+  const filteredNews = filter === "All" 
+    ? newsData 
+    : newsData.filter(item => item.category === filter);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
+    <div className="min-h-screen bg-background font-sans selection:bg-primary selection:text-primary-foreground">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+        <div className="container flex h-16 items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-primary flex items-center justify-center text-primary-foreground font-black text-lg">
+              US
+            </div>
+            <span className="font-bold text-lg tracking-tight hidden sm:inline-block">
+              STOCK NEWS
+            </span>
+          </div>
+          
+          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+            <a href="#" className="text-foreground hover:text-primary transition-colors">Market</a>
+            <a href="#" className="text-foreground hover:text-primary transition-colors">Economy</a>
+            <a href="#" className="text-foreground hover:text-primary transition-colors">Tech</a>
+            <a href="#" className="text-foreground hover:text-primary transition-colors">Learn</a>
+          </nav>
+
+          <div className="flex items-center gap-4">
+            <button className="p-2 hover:bg-secondary transition-colors">
+              <Search className="w-5 h-5" />
+            </button>
+            <button className="md:hidden p-2 hover:bg-secondary transition-colors">
+              <Menu className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="relative bg-primary text-primary-foreground py-12 md:py-20 overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-20">
+          <img 
+            src="/images/hero-bg.jpg" 
+            alt="Background" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="container relative z-10">
+          <div className="max-w-2xl">
+            <div className="inline-block px-3 py-1 border border-primary-foreground/30 text-xs font-bold uppercase tracking-widest mb-4 bg-primary-foreground/10 backdrop-blur-sm">
+              Daily Briefing
+            </div>
+            <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-6 leading-tight">
+              MARKET <br/>
+              INTELLIGENCE
+            </h1>
+            <p className="text-lg md:text-xl text-primary-foreground/80 max-w-lg leading-relaxed mb-8">
+              米国株の「今」を、初心者にもわかりやすく解説。
+              <br/>
+              ニュースの裏側にある「なぜ」と「これから」を読み解く。
+            </p>
+            
+            {/* Market Ticker (Static for demo) */}
+            <div className="grid grid-cols-3 gap-4 bg-white/10 backdrop-blur-md p-4 border border-white/20">
+              <div className="flex flex-col">
+                <span className="text-xs opacity-70 uppercase tracking-wider">S&P 500</span>
+                <div className="flex items-center gap-1 font-mono font-bold">
+                  6,978.03 <span className="text-red-300 text-xs">-0.01%</span>
+                </div>
+              </div>
+              <div className="flex flex-col border-l border-white/20 pl-4">
+                <span className="text-xs opacity-70 uppercase tracking-wider">NASDAQ</span>
+                <div className="flex items-center gap-1 font-mono font-bold">
+                  23,817.10 <span className="text-green-300 text-xs">+0.91%</span>
+                </div>
+              </div>
+              <div className="flex flex-col border-l border-white/20 pl-4">
+                <span className="text-xs opacity-70 uppercase tracking-wider">USD/JPY</span>
+                <div className="flex items-center gap-1 font-mono font-bold">
+                  153.39 <span className="text-green-300 text-xs">+0.49%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <main className="container py-12">
+        {/* Filter Tabs */}
+        <div className="flex overflow-x-auto pb-4 mb-8 gap-2 no-scrollbar">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`
+                px-4 py-2 text-sm font-bold uppercase tracking-wider whitespace-nowrap border transition-all
+                ${filter === cat 
+                  ? "bg-primary text-primary-foreground border-primary" 
+                  : "bg-background text-muted-foreground border-border hover:border-primary hover:text-primary"}
+              `}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* News Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredNews.map((news) => (
+            <NewsCard key={news.id} news={news} />
+          ))}
+        </div>
       </main>
+
+      {/* Features Section */}
+      <section className="bg-secondary py-16 border-y border-border">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 bg-background border border-border">
+              <div className="w-12 h-12 bg-primary/10 flex items-center justify-center mb-4 text-primary">
+                <Activity className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg font-bold mb-2">Market Analysis</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                単なるニュースの羅列ではなく、市場への影響を深く分析し、投資判断に役立つ情報を提供します。
+              </p>
+            </div>
+            <div className="p-6 bg-background border border-border">
+              <div className="w-12 h-12 bg-primary/10 flex items-center justify-center mb-4 text-primary">
+                <TrendingUp className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg font-bold mb-2">Future Outlook</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                「だから何？」に答える。ニュースが今後の株価や経済にどう影響するかを予測します。
+              </p>
+            </div>
+            <div className="p-6 bg-background border border-border">
+              <div className="w-12 h-12 bg-primary/10 flex items-center justify-center mb-4 text-primary">
+                <DollarSign className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg font-bold mb-2">Beginner Friendly</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                専門用語はワンクリックで解説。初心者でも挫折せずに経済ニュースを読み解く力が身につきます。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-primary text-primary-foreground py-12">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div className="col-span-1 md:col-span-2">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-6 h-6 bg-white text-primary flex items-center justify-center font-black text-xs">
+                  US
+                </div>
+                <span className="font-bold tracking-tight">STOCK NEWS</span>
+              </div>
+              <p className="text-sm text-primary-foreground/70 max-w-xs leading-relaxed">
+                米国株投資を始めるすべての人のための、信頼できる情報源。
+                複雑なマーケットをシンプルに、深く理解するお手伝いをします。
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4 text-sm uppercase tracking-widest opacity-70">Links</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4 text-sm uppercase tracking-widest opacity-70">Follow Us</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-white transition-colors">Twitter / X</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Newsletter</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-primary-foreground/20 text-xs text-primary-foreground/50 flex justify-between items-center">
+            <p>&copy; 2026 US Stock News. All rights reserved.</p>
+            <p>Designed with Swiss Style Philosophy</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
