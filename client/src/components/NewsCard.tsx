@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronUp, Info, ArrowRight } from "lucide-react";
+import { ChevronDown, ChevronUp, Info, ArrowRight, ExternalLink } from "lucide-react";
 import { NewsItem } from "@/lib/news-data";
 import { cn } from "@/lib/utils";
 
@@ -36,7 +36,14 @@ export default function NewsCard({ news }: NewsCardProps) {
           {news.category}
         </div>
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 pt-12">
-          <div className="text-white/80 text-xs mb-1 font-mono">{news.date}</div>
+          <div className="flex justify-between items-end mb-1">
+            <div className="text-white/80 text-xs font-mono">{news.date}</div>
+            {news.source && (
+              <div className="text-white/90 text-[10px] font-bold uppercase tracking-wider bg-black/40 px-2 py-0.5 backdrop-blur-sm border border-white/20">
+                {news.source}
+              </div>
+            )}
+          </div>
           <h2 className="text-white text-lg font-bold leading-tight line-clamp-2">
             {news.title}
           </h2>
@@ -98,6 +105,20 @@ export default function NewsCard({ news }: NewsCardProps) {
                     ))}
                   </div>
                 </div>
+
+                {/* Source Link */}
+                {news.sourceUrl && (
+                  <div className="pt-4 border-t border-border/50 flex justify-end">
+                    <a 
+                      href={news.sourceUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-xs font-bold text-muted-foreground hover:text-primary flex items-center transition-colors uppercase tracking-wider"
+                    >
+                      Source: {news.source} <ExternalLink className="w-3 h-3 ml-1" />
+                    </a>
+                  </div>
+                )}
 
                 {/* Terms Section */}
                 {news.terms.length > 0 && (

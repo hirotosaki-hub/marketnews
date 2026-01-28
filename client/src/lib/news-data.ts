@@ -8,11 +8,15 @@ export interface NewsItem {
   category: string;
   date: string;
   image: string;
+  source: string;
+  sourceUrl: string;
 }
 
 export const newsData: NewsItem[] = [
   {
     id: "1",
+    source: "Bloomberg",
+    sourceUrl: "https://www.bloomberg.com/jp",
     title: "FRB、政策金利の据え置きを決定。市場は今後の利下げ時期に注目",
     summary: "FRBが政策金利の据え置きを決定したことを受け、市場は一旦様子見ムードとなっていますが、今後の利下げのタイミングが次の焦点となります。",
     background: "アメリカの中央銀行にあたるFRB（連邦準備制度理事会）は、定期的にFOMC（連邦公開市場委員会）という会合を開き、政策金利などの金融政策を決定します。政策金利は、景気や物価の安定を目的として調整され、企業の借入コストや個人のローン金利に影響を与えるため、株式市場にとって非常に重要な指標です。",
@@ -57,7 +61,9 @@ export const newsData: NewsItem[] = [
     ],
     category: "Market Trends",
     date: "2026.01.28",
-    image: "/images/news-market.jpg"
+    image: "/images/news-market.jpg",
+    source: "CNBC",
+    sourceUrl: "https://www.cnbc.com/"
   },
   {
     id: "3",
@@ -77,6 +83,8 @@ export const newsData: NewsItem[] = [
     ],
     category: "Corporate Earnings",
     date: "2026.01.28",
-    image: "/images/news-tech.jpg"
+    image: "/images/news-tech.jpg",
+    source: "Nikkei",
+    sourceUrl: "https://www.nikkei.com/"
   }
 ];

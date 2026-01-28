@@ -68,23 +68,23 @@ export default function Home() {
             </p>
             
             {/* Market Ticker (Static for demo) */}
-            <div className="grid grid-cols-3 gap-4 bg-white/10 backdrop-blur-md p-4 border border-white/20">
-              <div className="flex flex-col">
+            <div className="flex flex-col sm:flex-row sm:grid sm:grid-cols-3 gap-4 bg-white/10 backdrop-blur-md p-4 border border-white/20">
+              <div className="flex items-center justify-between sm:flex-col sm:items-start">
                 <span className="text-xs opacity-70 uppercase tracking-wider">S&P 500</span>
-                <div className="flex items-center gap-1 font-mono font-bold">
-                  6,978.03 <span className="text-red-300 text-xs">-0.01%</span>
+                <div className="flex items-center gap-2 sm:gap-1 font-mono font-bold">
+                  6,978.03 <span className="text-red-300 text-xs bg-red-500/20 px-1 rounded">-0.01%</span>
                 </div>
               </div>
-              <div className="flex flex-col border-l border-white/20 pl-4">
+              <div className="flex items-center justify-between sm:flex-col sm:items-start border-t sm:border-t-0 sm:border-l border-white/20 pt-2 sm:pt-0 sm:pl-4">
                 <span className="text-xs opacity-70 uppercase tracking-wider">NASDAQ</span>
-                <div className="flex items-center gap-1 font-mono font-bold">
-                  23,817.10 <span className="text-green-300 text-xs">+0.91%</span>
+                <div className="flex items-center gap-2 sm:gap-1 font-mono font-bold">
+                  23,817.10 <span className="text-green-300 text-xs bg-green-500/20 px-1 rounded">+0.91%</span>
                 </div>
               </div>
-              <div className="flex flex-col border-l border-white/20 pl-4">
+              <div className="flex items-center justify-between sm:flex-col sm:items-start border-t sm:border-t-0 sm:border-l border-white/20 pt-2 sm:pt-0 sm:pl-4">
                 <span className="text-xs opacity-70 uppercase tracking-wider">USD/JPY</span>
-                <div className="flex items-center gap-1 font-mono font-bold">
-                  153.39 <span className="text-green-300 text-xs">+0.49%</span>
+                <div className="flex items-center gap-2 sm:gap-1 font-mono font-bold">
+                  153.39 <span className="text-green-300 text-xs bg-green-500/20 px-1 rounded">+0.49%</span>
                 </div>
               </div>
             </div>
