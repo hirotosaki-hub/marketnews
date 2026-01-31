@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { newsData } from "@/lib/news-data";
 import NewsCard from "@/components/NewsCard";
-import { Search, Menu, TrendingUp, DollarSign, Activity } from "lucide-react";
+import { Search, Menu, TrendingUp, DollarSign, Activity, LayoutGrid, Cpu } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
-  const [filter, setFilter] = useState("All");
-  const categories = ["All", "Monetary Policy", "Market Trends", "Corporate Earnings"];
+  const [activeTab, setActiveTab] = useState<"market" | "tech">("market");
 
-  const filteredNews = filter === "All" 
-    ? newsData 
-    : newsData.filter(item => item.category === filter);
+  const filteredNews = newsData.filter(news => news.tab === activeTab);
 
   return (
     <div className="min-h-screen bg-background font-sans selection:bg-primary selection:text-primary-foreground">
@@ -94,26 +92,47 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="container py-12">
-        {/* Filter Tabs */}
-        <div className="flex overflow-x-auto pb-4 mb-8 gap-2 no-scrollbar">
-          {categories.map((cat) => (
+        <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-6">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight mb-2">Latest Insights</h2>
+            <p className="text-muted-foreground">
+              {activeTab === "market" 
+                ? "今日の重要ニュースを厳選してお届けします。" 
+                : "主要テック企業の最新動向と影響を解説します。"}
+            </p>
+          </div>
+          
+          {/* Tabs */}
+          <div className="flex p-1 bg-muted/50 rounded-lg self-start md:self-auto">
             <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`
-                px-4 py-2 text-sm font-bold uppercase tracking-wider whitespace-nowrap border transition-all
-                ${filter === cat 
-                  ? "bg-primary text-primary-foreground border-primary" 
-                  : "bg-background text-muted-foreground border-border hover:border-primary hover:text-primary"}
-              `}
+              onClick={() => setActiveTab("market")}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 rounded-md text-sm font-bold transition-all duration-200",
+                activeTab === "market" 
+                  ? "bg-primary text-primary-foreground shadow-sm" 
+                  : "text-muted-foreground hover:text-foreground hover:bg-background/50"
+              )}
             >
-              {cat}
+              <LayoutGrid className="w-4 h-4" />
+              Market News
             </button>
-          ))}
+            <button
+              onClick={() => setActiveTab("tech")}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 rounded-md text-sm font-bold transition-all duration-200",
+                activeTab === "tech" 
+                  ? "bg-primary text-primary-foreground shadow-sm" 
+                  : "text-muted-foreground hover:text-foreground hover:bg-background/50"
+              )}
+            >
+              <Cpu className="w-4 h-4" />
+              Tech Focus
+            </button>
+          </div>
         </div>
 
         {/* News Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[400px]">
           {filteredNews.map((news) => (
             <NewsCard key={news.id} news={news} />
           ))}

@@ -5,7 +5,8 @@ export interface NewsItem {
   background: string;
   impact: string;
   terms: { term: string; definition: string }[];
-  category: string;
+  category: string; // "Market" | "Tech" | "Economy" etc.
+  tab: "market" | "tech"; // New field for tab filtering
   date: string;
   image: string;
   source: string;
@@ -13,6 +14,7 @@ export interface NewsItem {
 }
 
 export const newsData: NewsItem[] = [
+  // --- Market News ---
   {
     id: "1",
     source: "Bloomberg",
@@ -32,6 +34,7 @@ export const newsData: NewsItem[] = [
       }
     ],
     category: "Monetary Policy",
+    tab: "market",
     date: "2026.01.29",
     image: "/images/news-fomc.jpg"
   },
@@ -54,6 +57,7 @@ export const newsData: NewsItem[] = [
       }
     ],
     category: "Market Trends",
+    tab: "market",
     date: "2026.01.29",
     image: "/images/news-market.jpg"
   },
@@ -76,7 +80,79 @@ export const newsData: NewsItem[] = [
       }
     ],
     category: "Economy",
+    tab: "market",
     date: "2026.01.29",
     image: "/images/news-tech.jpg"
+  },
+
+  // --- Tech News ---
+  {
+    id: "4",
+    source: "Reuters",
+    sourceUrl: "https://www.reuters.com/legal/transactional/tesla-jumps-spacex-merger-talks-fuel-musk-empire-consolidation-hopes-2026-01-30/",
+    title: "テスラ株急騰、SpaceXとの合併協議報道で「マスク帝国」統合への期待",
+    summary: "テスラ（Tesla）の株価が約5%上昇しました。イーロン・マスク氏が率いる宇宙開発企業SpaceXとの合併協議が行われているとの報道が好感されました。",
+    background: "テスラは電気自動車（EV）、SpaceXはロケットや衛星通信を手掛ける企業で、どちらもイーロン・マスク氏がCEOを務めています。これまで別々の会社でしたが、統合されれば巨大な技術コングロマリットが誕生することになります。",
+    impact: "EV市場の競争が激化する中、テスラ単体での成長に対する懸念がありましたが、SpaceXという強力な成長エンジンと一緒になることで、企業価値が再評価される可能性があります。\n\n**投資家への影響**: 合併が実現すれば、テスラ株を持っているだけでSpaceXの成長も享受できるようになるため、買い材料となります。ただし、規制当局の承認などハードルも高く、実現するかは不透明です。",
+    terms: [
+      {
+        term: "コングロマリット",
+        definition: "異業種の会社を多角的に経営する巨大複合企業のこと。"
+      },
+      {
+        term: "シナジー効果",
+        definition: "複数の企業が協力・統合することで、単独で活動する以上の成果を生み出す相乗効果のこと。"
+      }
+    ],
+    category: "EV & Space",
+    tab: "tech",
+    date: "2026.01.30",
+    image: "/images/news-tech.jpg"
+  },
+  {
+    id: "5",
+    source: "WSJ",
+    sourceUrl: "https://www.wsj.com/tech/ai/the-100-billion-megadeal-between-openai-and-nvidia-is-on-ice-aa3025e3",
+    title: "OpenAIとNvidiaの15兆円規模の提携、一時凍結か",
+    summary: "AI開発のOpenAIと半導体大手Nvidiaの間で進められていた約1000億ドル（15兆円）規模の取引が、一時的にストップしていると報じられました。それでもNvidia株は上昇しています。",
+    background: "OpenAIは「ChatGPT」を開発するAIのトップ企業、NvidiaはそのAIを動かすための半導体（GPU）で独占的なシェアを持つ企業です。両社の提携は、AIインフラの構築を加速させるものとして注目されていました。",
+    impact: "提携の遅れはAI開発競争に影響を与える可能性がありますが、市場は「Nvidiaの優位性は変わらない」と判断し、株価はむしろ上昇しました。\n\n**投資家への影響**: ニュースのヘッドライン（見出し）だけで判断せず、市場の反応を見ることが重要です。「悪材料が出ても株価が下がらない」のは、その銘柄への需要が非常に強いことを示唆しています。",
+    terms: [
+      {
+        term: "GPU",
+        definition: "画像処理半導体。元々はゲーム用でしたが、現在はAIの計算処理に不可欠な部品となっています。"
+      },
+      {
+        term: "時価総額",
+        definition: "株価 × 発行済み株式数で計算される、企業の価値を表す指標。Nvidiaは世界トップクラスです。"
+      }
+    ],
+    category: "AI & Chips",
+    tab: "tech",
+    date: "2026.01.30",
+    image: "/images/news-market.jpg"
+  },
+  {
+    id: "6",
+    source: "Reuters",
+    sourceUrl: "https://www.reuters.com/legal/litigation/musks-starlink-updates-privacy-policy-allow-consumer-data-train-ai-2026-01-30/",
+    title: "Starlink、顧客データをAI学習に利用へ。規約を変更",
+    summary: "衛星通信サービス「Starlink」がプライバシーポリシーを変更し、顧客データをAIのトレーニングに利用できるようにしました。イーロン・マスク氏のAI開発を加速させる狙いがあります。",
+    background: "AIを賢くするには、大量のデータ（テキストや画像など）を読み込ませて学習させる必要があります。Starlinkの通信データを使うことで、よりリアルなデータをAIに学ばせることができます。",
+    impact: "プライバシーへの懸念はありますが、マスク氏が率いるAI企業（xAIなど）にとっては強力な武器になります。\n\n**投資家への影響**: データは「21世紀の石油」とも呼ばれます。独自のデータ源を持っている企業は、AI開発競争において有利な立場に立てるため、長期的な競争力強化につながります。",
+    terms: [
+      {
+        term: "Starlink",
+        definition: "数千基の人工衛星を使って、地球上のあらゆる場所にインターネット接続を提供するサービス。"
+      },
+      {
+        term: "プライバシーポリシー",
+        definition: "企業が個人情報をどう扱うかを定めた方針。これに同意しないとサービスを使えないことが多いです。"
+      }
+    ],
+    category: "AI & Data",
+    tab: "tech",
+    date: "2026.01.30",
+    image: "/images/news-fomc.jpg"
   }
 ];
