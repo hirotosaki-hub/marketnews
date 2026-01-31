@@ -43,16 +43,15 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative bg-primary text-primary-foreground py-12 md:py-20 overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <img 
-            src="/images/hero-bg.jpg" 
-            alt="Background" 
-            className="w-full h-full object-cover"
-          />
+        {/* Abstract Geometric Background */}
+        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-white rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-400 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4" />
         </div>
+        
         <div className="container relative z-10">
-          <div className="max-w-2xl">
-            <div className="inline-block px-3 py-1 border border-primary-foreground/30 text-xs font-bold uppercase tracking-widest mb-4 bg-primary-foreground/10 backdrop-blur-sm">
+          <div className="max-w-3xl">
+            <div className="inline-block px-3 py-1 border border-primary-foreground/30 text-xs font-bold uppercase tracking-widest mb-6 bg-primary-foreground/5 backdrop-blur-sm">
               Daily Briefing
             </div>
             <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-6 leading-tight">

@@ -14,7 +14,7 @@ export interface NewsItem {
 }
 
 export const newsData: NewsItem[] = [
-  // --- Market News ---
+  // --- Market News (5 items) ---
   {
     id: "1",
     source: "Bloomberg",
@@ -84,10 +84,56 @@ export const newsData: NewsItem[] = [
     date: "2026.01.29",
     image: "/images/news-tech.jpg"
   },
-
-  // --- Tech News ---
   {
     id: "4",
+    source: "Bloomberg",
+    sourceUrl: "https://www.bloomberg.com/news/articles/2026-01-28/big-tech-earnings-mixed-results",
+    title: "ビッグテック決算は「まちまち」。市場は選別色を強める",
+    summary: "巨大IT企業の決算発表が本格化していますが、結果は明暗が分かれています。MicrosoftやMetaなどの動向が注目される中、投資家はよりシビアに業績を見極めようとしています。",
+    background: "「ビッグテック」とは、Google, Apple, Meta, Amazon, Microsoftなどの巨大IT企業を指します。これらの企業の業績は、米国株式市場全体に大きな影響を与えます。",
+    impact: "AIへの投資競争が激化する中、収益化の道筋が見えている企業とそうでない企業の差が開いています。\n\n**投資家への影響**: 「ハイテク株なら何でも上がる」という局面は終わりつつあります。個別の決算内容をしっかり確認し、将来性のある企業を選別する必要があります。",
+    terms: [
+      {
+        term: "決算",
+        definition: "企業が一定期間の業績（売上や利益など）を発表すること。株価が大きく動くイベントです。"
+      },
+      {
+        term: "選別色",
+        definition: "良いものと悪いものを区別して投資すること。市場全体が上がるのではなく、特定の銘柄だけが上がる状況。"
+      }
+    ],
+    category: "Earnings",
+    tab: "market",
+    date: "2026.01.29",
+    image: "/images/news-market.jpg"
+  },
+  {
+    id: "5",
+    source: "Investing.com",
+    sourceUrl: "https://www.investing.com/news/economic-indicators/jobless-claims-preview-2026-01-29",
+    title: "市場の関心は「雇用統計」へ。労働市場の強さが焦点",
+    summary: "FOMCを通過し、投資家の関心は労働市場のデータに移っています。特に新規失業保険申請件数などの指標が、今後の景気動向を占う上で重要視されています。",
+    background: "米国経済の7割は個人消費が支えており、その源泉となるのが「雇用」です。失業者が増えれば消費が落ち込み、景気が悪化するリスクが高まります。",
+    impact: "労働市場が強すぎるとインフレが再燃する恐れがあり、弱すぎると景気後退（リセッション）の懸念が高まります。\n\n**投資家への影響**: 「程よい」強さのデータが出ることが、株価にとっては最も好ましいシナリオ（ゴルディロックス相場）です。指標発表前後は株価が乱高下しやすいため注意が必要です。",
+    terms: [
+      {
+        term: "雇用統計",
+        definition: "米国の労働市場の状況を示す経済指標。毎月第一金曜日に発表され、世界中の投資家が注目します。"
+      },
+      {
+        term: "リセッション",
+        definition: "景気後退のこと。一般的に、GDPが2四半期連続でマイナス成長になるとリセッションと見なされます。"
+      }
+    ],
+    category: "Economy",
+    tab: "market",
+    date: "2026.01.29",
+    image: "/images/news-fomc.jpg"
+  },
+
+  // --- Tech News (5 items) ---
+  {
+    id: "6",
     source: "Reuters",
     sourceUrl: "https://www.reuters.com/legal/transactional/tesla-jumps-spacex-merger-talks-fuel-musk-empire-consolidation-hopes-2026-01-30/",
     title: "テスラ株急騰、SpaceXとの合併協議報道で「マスク帝国」統合への期待",
@@ -110,7 +156,7 @@ export const newsData: NewsItem[] = [
     image: "/images/news-tech.jpg"
   },
   {
-    id: "5",
+    id: "7",
     source: "WSJ",
     sourceUrl: "https://www.wsj.com/tech/ai/the-100-billion-megadeal-between-openai-and-nvidia-is-on-ice-aa3025e3",
     title: "OpenAIとNvidiaの15兆円規模の提携、一時凍結か",
@@ -133,7 +179,7 @@ export const newsData: NewsItem[] = [
     image: "/images/news-market.jpg"
   },
   {
-    id: "6",
+    id: "8",
     source: "Reuters",
     sourceUrl: "https://www.reuters.com/legal/litigation/musks-starlink-updates-privacy-policy-allow-consumer-data-train-ai-2026-01-30/",
     title: "Starlink、顧客データをAI学習に利用へ。規約を変更",
@@ -154,5 +200,51 @@ export const newsData: NewsItem[] = [
     tab: "tech",
     date: "2026.01.30",
     image: "/images/news-fomc.jpg"
+  },
+  {
+    id: "9",
+    source: "Bloomberg",
+    sourceUrl: "https://www.bloomberg.com/news/articles/2026-01-30/bitcoin-btc-slumps-to-two-month-low-as-us-funds-shed-billions",
+    title: "ビットコイン、2ヶ月ぶりの安値に下落。ETFからの資金流出続く",
+    summary: "暗号資産（仮想通貨）のビットコイン価格が下落し、2ヶ月ぶりの安値をつけました。米国のビットコインETF（上場投資信託）から資金が流出していることが主な要因です。",
+    background: "ビットコインは、テック株と同様にリスク資産と見なされることが多く、金利動向や規制ニュースに敏感に反応します。最近はETFを通じた機関投資家の資金流入が価格を支えていました。",
+    impact: "暗号資産市場の冷え込みは、ブロックチェーン関連企業の株価にも悪影響を与える可能性があります。\n\n**投資家への影響**: 暗号資産はボラティリティ（価格変動）が非常に激しい資産です。ポートフォリオの一部として保有する場合は、リスク管理を徹底する必要があります。",
+    terms: [
+      {
+        term: "ETF",
+        definition: "証券取引所に上場している投資信託。株と同じようにリアルタイムで売買できます。"
+      },
+      {
+        term: "リスクオフ",
+        definition: "投資家がリスクを避けるために、株式などのリスク資産を売って現金や国債などの安全資産に移す動き。"
+      }
+    ],
+    category: "Crypto",
+    tab: "tech",
+    date: "2026.01.30",
+    image: "/images/news-tech.jpg"
+  },
+  {
+    id: "10",
+    source: "Bloomberg",
+    sourceUrl: "https://www.bloomberg.com/news/videos/2026-01-30/bloomberg-tech-1-30-2026-video",
+    title: "Apple、メモリ価格上昇が利益を圧迫か。コスト増への懸念",
+    summary: "Appleの業績に対し、メモリチップの価格上昇がコスト増加の要因として懸念されています。iPhoneなどの主力製品の利益率に影響を与える可能性があります。",
+    background: "スマートフォンやPCには、データを一時的に保存するためのメモリ（DRAM）や、データを長期保存するためのストレージ（NAND）が大量に使われています。これらの部品価格は市場の需給によって変動します。",
+    impact: "ハードウェアの製造コストが上がれば、Appleは製品価格を上げるか、利益率の低下を受け入れるかの選択を迫られます。\n\n**投資家への影響**: Appleは強力なブランド力を持っているため、コスト増を価格転嫁しやすい企業ですが、消費者の財布の紐が固くなれば販売数量に影響が出るリスクもあります。",
+    terms: [
+      {
+        term: "利益率",
+        definition: "売上高に対する利益の割合。これが高いほど、効率よく稼いでいる企業と言えます。"
+      },
+      {
+        term: "価格転嫁",
+        definition: "原材料費などのコスト上昇分を、製品の販売価格に上乗せすること。"
+      }
+    ],
+    category: "Hardware",
+    tab: "tech",
+    date: "2026.01.30",
+    image: "/images/news-market.jpg"
   }
 ];
