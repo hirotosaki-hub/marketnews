@@ -31,9 +31,6 @@ export default function Home() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <button className="p-2 hover:bg-secondary transition-colors">
-              <Search className="w-5 h-5" />
-            </button>
             <button className="md:hidden p-2 hover:bg-secondary transition-colors">
               <Menu className="w-5 h-5" />
             </button>
