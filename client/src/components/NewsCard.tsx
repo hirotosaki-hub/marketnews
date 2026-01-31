@@ -26,37 +26,34 @@ export default function NewsCard({ news }: NewsCardProps) {
       layout
       className="bg-card border border-border overflow-hidden mb-6 shadow-sm hover:shadow-md transition-shadow duration-300"
     >
-      <div className="relative h-48 overflow-hidden cursor-pointer" onClick={toggleExpand}>
-        <img
-          src={news.image}
-          alt={news.title}
-          className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-        />
-        <div className="absolute top-4 left-4 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 uppercase tracking-wider">
-          {news.category}
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 pt-12">
-          <div className="flex justify-between items-end mb-1">
-            <div className="text-white/80 text-xs font-mono">{news.date}</div>
-            {news.source && (
-              <div className="text-white/90 text-[10px] font-bold uppercase tracking-wider bg-black/40 px-2 py-0.5 backdrop-blur-sm border border-white/20">
-                {news.source}
-              </div>
-            )}
+      <div className="p-6 cursor-pointer hover:bg-secondary/30 transition-colors" onClick={toggleExpand}>
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex items-center gap-3">
+            <span className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-1 uppercase tracking-wider border border-primary/20">
+              {news.category}
+            </span>
+            <span className="text-muted-foreground text-xs font-mono">{news.date}</span>
           </div>
-          <h2 className="text-white text-lg font-bold leading-tight line-clamp-2">
-            {news.title}
-          </h2>
+          {news.source && (
+            <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider border border-border px-2 py-0.5">
+              {news.source}
+            </span>
+          )}
         </div>
-      </div>
+        
+        <h2 className="text-xl md:text-2xl font-bold leading-tight mb-4 text-foreground group-hover:text-primary transition-colors">
+          {news.title}
+        </h2>
 
-      <div className="p-5">
-        <div className="mb-4">
-          <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2 text-[10px]">SUMMARY</h3>
-          <p className="text-foreground font-medium leading-relaxed">
+        <div className="mb-2 pl-4 border-l-2 border-primary/30">
+          <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">SUMMARY</h3>
+          <p className="text-foreground/90 font-medium leading-relaxed">
             {news.summary}
           </p>
         </div>
+      </div>
+
+      <div className="px-6 pb-6">
 
         <button
           onClick={toggleExpand}
