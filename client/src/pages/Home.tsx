@@ -1,11 +1,20 @@
-import { useState } from "react";
-import { newsData } from "@/lib/news-data";
+import { useState, useEffect } from "react";
+import { fetchNewsData, type NewsItem } from "@/lib/news-data";
 import NewsCard from "@/components/NewsCard";
 import { Search, Menu, TrendingUp, DollarSign, Activity, LayoutGrid, Cpu } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<"market" | "tech">("market");
+  const [newsData, setNewsData] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchNewsData().then(data => {
+      setNewsData(data);
+      setLoading(false);
+    });
+  }, []);
 
   const filteredNews = newsData.filter(news => news.tab === activeTab);
 
@@ -129,9 +138,22 @@ export default function Home() {
 
         {/* News Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[400px]">
-          {filteredNews.map((news) => (
-            <NewsCard key={news.id} news={news} />
-          ))}
+          {loading ? (
+            <div className="col-span-full flex items-center justify-center py-12">
+              <div className="text-center">
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary mb-4"></div>
+                <p className="text-muted-foreground">ニュースを読み込み中...</p>
+              </div>
+            </div>
+          ) : filteredNews.length === 0 ? (
+            <div className="col-span-full flex items-center justify-center py-12">
+              <p className="text-muted-foreground">ニュースが見つかりませんでした。</p>
+            </div>
+          ) : (
+            filteredNews.map((news) => (
+              <NewsCard key={news.id} news={news} />
+            ))
+          )}
         </div>
       </main>
 
