@@ -7,6 +7,7 @@ US Market News - ニュース自動更新スクリプト
 import json
 import os
 import sys
+import subprocess
 from datetime import datetime
 from openai import OpenAI
 
@@ -17,115 +18,26 @@ def search_us_market_news():
     """米国市場の最新ニュースを検索"""
     print("📰 米国市場の最新ニュースを検索中...")
     
-    # 検索クエリ（市場ニュース5件 + テックニュース5件）
-    market_queries = [
-        "US stock market today",
-        "Federal Reserve interest rates",
-        "S&P 500 Nasdaq Dow Jones",
-        "US economy inflation employment",
-        "Dollar USD currency market"
-    ]
-    
-    tech_queries = [
-        "Apple Microsoft Google Meta Amazon earnings",
-        "Tesla SpaceX Elon Musk",
-        "Nvidia OpenAI artificial intelligence",
-        "Bitcoin cryptocurrency ETF",
-        "Tech stocks semiconductor chips"
-    ]
-    
-    # 実際のニュース検索は、ここでは簡略化のため、
-    # 最新のトピックを手動で指定します
-    # 本番環境では、NewsAPI、Finnhub、Alpha Vantageなどを使用
-    
-    news_items = []
-    
-    # サンプルニュース（実際にはAPIから取得）
-    sample_news = [
-        {
-            "title": "Fed Holds Rates Steady as Economic Data Shows Resilience",
-            "url": "https://www.bloomberg.com/news/articles/2026-02-01/fed-holds-rates",
-            "source": "Bloomberg",
-            "category": "Monetary Policy",
-            "tab": "market",
-            "published": "2026-02-01"
-        },
-        {
-            "title": "S&P 500 Reaches New All-Time High Above 7,000",
-            "url": "https://www.reuters.com/markets/us/sp-500-7000-2026-02-01/",
-            "source": "Reuters",
-            "category": "Market Trends",
-            "tab": "market",
-            "published": "2026-02-01"
-        },
-        {
-            "title": "Dollar Strengthens on Strong Jobs Report",
-            "url": "https://www.marketwatch.com/story/dollar-jobs-2026-02-01",
-            "source": "MarketWatch",
-            "category": "Economy",
-            "tab": "market",
-            "published": "2026-02-01"
-        },
-        {
-            "title": "Big Tech Earnings Beat Expectations, AI Spending Surges",
-            "url": "https://www.bloomberg.com/news/articles/2026-02-01/big-tech-earnings",
-            "source": "Bloomberg",
-            "category": "Earnings",
-            "tab": "market",
-            "published": "2026-02-01"
-        },
-        {
-            "title": "Labor Market Shows Continued Strength, Jobless Claims Fall",
-            "url": "https://www.investing.com/news/economy/jobless-claims-2026-02-01",
-            "source": "Investing.com",
-            "category": "Economy",
-            "tab": "market",
-            "published": "2026-02-01"
-        },
-        # Tech News
-        {
-            "title": "Tesla Stock Surges on SpaceX Merger Speculation",
-            "url": "https://www.reuters.com/business/autos-transportation/tesla-spacex-2026-02-01/",
-            "source": "Reuters",
-            "category": "EV & Space",
-            "tab": "tech",
-            "published": "2026-02-01"
-        },
-        {
-            "title": "Nvidia and OpenAI Announce $100B AI Infrastructure Deal",
-            "url": "https://www.wsj.com/tech/ai/nvidia-openai-deal-2026-02-01",
-            "source": "WSJ",
-            "category": "AI & Chips",
-            "tab": "tech",
-            "published": "2026-02-01"
-        },
-        {
-            "title": "Starlink Updates Privacy Policy to Allow AI Training on User Data",
-            "url": "https://www.reuters.com/technology/starlink-ai-privacy-2026-02-01/",
-            "source": "Reuters",
-            "category": "AI & Data",
-            "tab": "tech",
-            "published": "2026-02-01"
-        },
-        {
-            "title": "Bitcoin Falls to Two-Month Low as ETF Outflows Continue",
-            "url": "https://www.bloomberg.com/news/articles/2026-02-01/bitcoin-etf-outflows",
-            "source": "Bloomberg",
-            "category": "Crypto",
-            "tab": "tech",
-            "published": "2026-02-01"
-        },
-        {
-            "title": "Apple Faces Margin Pressure from Rising Memory Chip Costs",
-            "url": "https://www.bloomberg.com/news/videos/2026-02-01/apple-memory-costs",
-            "source": "Bloomberg",
-            "category": "Hardware",
-            "tab": "tech",
-            "published": "2026-02-01"
-        }
-    ]
-    
-    return sample_news
+    try:
+        # 外部スクリプトからニュースを取得
+        script_path = os.path.join(os.path.dirname(__file__), 'fetch_news.py')
+        result = subprocess.run(
+            ['python3', script_path],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+        
+        if result.returncode == 0 and result.stdout:
+            news_items = json.loads(result.stdout)
+            return news_items
+        else:
+            print(f"❌ ニュース取得エラー: {result.stderr}")
+            return []
+            
+    except Exception as e:
+        print(f"❌ 検索エラー: {e}")
+        return []
 
 def generate_japanese_summary(news_item):
     """OpenAI APIを使用してニュースの日本語要約を生成"""
@@ -253,6 +165,11 @@ def main():
     
     # ニュースを検索
     news_items = search_us_market_news()
+    
+    if not news_items:
+        print("❌ ニュースの取得に失敗しました")
+        sys.exit(1)
+    
     print(f"✅ {len(news_items)}件のニュースを取得しました")
     
     # AI要約を生成
