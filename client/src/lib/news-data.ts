@@ -41,7 +41,9 @@ export async function fetchNewsData(): Promise<NewsItem[]> {
   }
 
   try {
-    const response = await fetch('/news.json');
+    // GitHubのCDN経由で最新のニュースデータを取得（キャッシュバスティング付き）
+    const timestamp = Date.now();
+    const response = await fetch(`https://cdn.jsdelivr.net/gh/hirotosaki-hub/marketnews@data/api/news.json?t=${timestamp}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
